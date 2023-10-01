@@ -2,9 +2,3 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 14rem);
 }
-
-.card-text-bottom {
-    margin-top: auto;
-    border-top: lightgray 1px solid;
-    text-align: left;
-}

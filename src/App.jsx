@@ -11,6 +11,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const Main = () => {
   // default term is Fall
   const [term, setTerm] = useState('Fall');
+  const [selected, setSelected] = useState([]);
+  const toggleSelected = (item) => setSelected(
+    selected.includes(item)
+      ? selected.filter(x => x !== item)
+      : [...selected, item]
+  );
+
   const [schedule, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
   if (error) return <h1>Error loading class data: {`${error}`}</h1>;
   if (isLoading) return <h1>Loading class data...</h1>;
@@ -19,7 +26,7 @@ const Main = () => {
     <div className="container">
       <Banner title={schedule.title} />
       <TermSelector selection={term} setSelection={setTerm} />
-      <CourseList courses={schedule.courses} term={term} />
+      <CourseList courses={schedule.courses} term={term} selected={selected} toggleSelected={toggleSelected} />
     </div>
   )
 }
