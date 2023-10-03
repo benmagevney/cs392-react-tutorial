@@ -1,0 +1,12 @@
+.button-group {
+    align-items: center;
+}
+
+.btn {
+    margin: 2px;
+    width: 125px;
+}
+
+.schedule-group {
+    padding-left: 20px;
+}

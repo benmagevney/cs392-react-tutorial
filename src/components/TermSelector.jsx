@@ -1,16 +1,7 @@
+import './TermSelector.css';
 
-const Button = ({ term, selection, setSelection }) => (
-    <div>
-        <input type="radio" id={term} className="btn-check" checked={term === selection} autoComplete="off"
-            onChange={() => setSelection(term)} />
-        <label className="btn btn-success mb-1 p-2" htmlFor={term}>
-            {term}
-        </label>
-    </div>
-);
-
-const TermSelector = ({ selection, setSelection }) => (
-    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+const TermSelector = ({ selection, setSelection, }) => (
+    <div className="button-group"  >
         <input type="radio" className="btn-check" name="btnradio" id="fall"
             autoComplete="off" defaultChecked={selection == "Fall"} onClick={() => setSelection("Fall")}
         />

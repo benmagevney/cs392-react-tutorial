@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,4 +40,20 @@
 
 button {
   font-size: calc(10px + 2vmin);
+}
+
+.subheader {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 0px 20px 0px 20px;
+}
+
+.btn-outline-dark {
+  margin-left: 20px;
+  width: 200px
+}
+
+.background {
+  background-color: #F4F1DE;
 }
