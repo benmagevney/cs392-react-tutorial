@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Banner from './components/Banner';
 import CourseList from './components/CourseList';
+import CourseForm from './components/CourseForm';
 import TermSelector from './components/TermSelector';
 import Schedule from './components/Schedule';
 import CourseSchedule from './components/CourseSchedule';
@@ -10,6 +11,7 @@ import { useState } from 'react';
 import { useJsonQuery } from './utilities/fetch';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { checkConflict } from './utilities/conflict';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const Main = () => {
   // default term is Fall
@@ -34,14 +36,27 @@ const Main = () => {
   return (
     <div className='background'>
       <Banner title={schedule.title} onClick={closeSchedule} />
-      <Schedule open={open} close={closeSchedule}>
-        <CourseSchedule courses={selected} />
-      </Schedule>
-      <div className="subheader">
-        <TermSelector selection={term} setSelection={setTerm} />
-        <button className="btn btn-outline-dark" onClick={openSchedule}>Show Schedule</button>
-      </div>
-      <CourseList courses={schedule.courses} term={term} selected={selected} toggleSelected={toggleSelected} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Schedule open={open} close={closeSchedule}>
+                <CourseSchedule courses={selected} />
+              </Schedule>
+              <div className="subheader">
+                <TermSelector selection={term} setSelection={setTerm} />
+                <button className="btn btn-outline-dark" onClick={openSchedule}>Show Schedule</button>
+              </div>
+              <CourseList courses={schedule.courses} term={term} selected={selected} toggleSelected={toggleSelected} />
+            </>
+          } />
+          <Route path="/course-form/:course" element={
+            <CourseForm />
+          } />
+        </Routes>
+
+
+      </BrowserRouter>
     </div>
   )
 }

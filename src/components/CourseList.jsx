@@ -1,6 +1,8 @@
 import './CourseList.css';
 import { checkConflict } from '../utilities/conflict';
 import icon from '../assets/warning.svg';
+import { Link } from 'react-router-dom';
+
 
 const Course = ({ course, isSelected, toggleSelected, hasConflict }) => (
     <div className="card m-1 p-2" onClick={() => toggleSelected(course)}
@@ -14,7 +16,11 @@ const Course = ({ course, isSelected, toggleSelected, hasConflict }) => (
         </div>
         <div className="card-footer">
             <p className='card-text'>{course.meets}</p>
+
         </div>
+        <Link to={`/course-form/${course.title}|${course.meets}`}>
+            <button className="btn btn-outline-dark" style={{ width: "100px", }}>Edit</button>
+        </Link>
 
     </div>
 );
