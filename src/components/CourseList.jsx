@@ -1,10 +1,15 @@
 import './CourseList.css';
+import { checkConflict } from '../utilities/conflict';
+import icon from '../assets/warning.svg';
 
-const Course = ({ course, selected, toggleSelected }) => (
+const Course = ({ course, isSelected, toggleSelected, hasConflict }) => (
     <div className="card m-1 p-2" onClick={() => toggleSelected(course)}
-        style={{ borderColor: selected ? "#E07A5F" : "#3D405B", borderWidth: "0.1em", backgroundColor: "#F4F1DE" }}>
+        style={{ borderColor: isSelected ? "#E07A5F" : "#3D405B", borderWidth: "0.2em", backgroundColor: "#F4F1DE" }}>
         <div className="card-body">
-            <h5 className='card-text'>{course.term} CS {course.number}</h5>
+            <div style={{ display: "flex", justifyContent: "space-between", }}>
+                <h5 className='card-text'>{course.term} CS {course.number}</h5>
+                {hasConflict && <img className='svg' src={icon} style={{ paddingBottom: "10px" }} />}
+            </div>
             <p className="card-text">{course.title}</p>
         </div>
         <div className="card-footer">
@@ -17,7 +22,12 @@ const CourseList = ({ courses, term, selected, toggleSelected }) => (
     <div className="container">
         <div className="course-list">
             {Object.entries(courses).filter(([id, course]) => course.term == term).map(
-                ([id, course]) => <Course key={id} course={course} selected={selected.includes(course)} toggleSelected={toggleSelected} />)}
+                ([id, course]) => <Course
+                    key={id}
+                    course={course}
+                    isSelected={selected.includes(course)}
+                    toggleSelected={toggleSelected}
+                    hasConflict={checkConflict(selected, course)} />)}
         </div>
     </div>
 );

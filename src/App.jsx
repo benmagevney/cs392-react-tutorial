@@ -9,6 +9,7 @@ import './App.css';
 import { useState } from 'react';
 import { useJsonQuery } from './utilities/fetch';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { checkConflict } from './utilities/conflict';
 
 const Main = () => {
   // default term is Fall
@@ -16,9 +17,10 @@ const Main = () => {
   // selected courses
   const [selected, setSelected] = useState([]);
   const toggleSelected = (item) => setSelected(
-    selected.includes(item)
-      ? selected.filter(x => x !== item)
-      : [...selected, item]
+    checkConflict(selected, item) ? selected :
+      selected.includes(item)
+        ? selected.filter(x => x !== item)
+        : [...selected, item]
   );
   // schedule button
   const [open, setOpen] = useState(false);
