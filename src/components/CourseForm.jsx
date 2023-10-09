@@ -4,9 +4,9 @@ import { useState } from 'react';
 const validateInput = (key, val) => {
     switch (key) {
         case 'title':
-            return val.length === 0 ? 'Title is required' : '';
+            return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
         case 'meets':
-            return val.length === 0 ? 'Title is required' : '';
+            return val == '' || /^[MTuWThF]+ ((0|1)[0-9]|2[1-3]):([0-5][0-9])-((0|1)[0-9]|2[1-3]):([0-5][0-9])/.test(val) ? '' : 'must contain days and start-end, e.g., MWF 12:00-13:20';
         default:
             return '';
     }
@@ -38,7 +38,7 @@ const useFormData = (validator = null, values = {}) => {
     const change = (evt) => {
         const { id, value } = evt.target;
         const error = validator ? validator(id, value) : '';
-        // evt.target.setCustomValidity(error);
+        evt.target.setCustomValidity(error);
 
         const values = { ...state.values, [id]: value };
         const errors = { ...state.errors, [id]: error };
