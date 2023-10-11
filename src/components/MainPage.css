@@ -1,0 +1,19 @@
+.background {
+    background-color: #F4F1DE;
+}
+
+button {
+    font-size: calc(10px + 2vmin);
+}
+
+.subheader {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 0px 20px 0px 20px;
+}
+
+.btn-outline-dark {
+    margin-left: 20px;
+    width: 200px
+}
