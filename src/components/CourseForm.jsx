@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { useDbUpdate } from '../utilities/firebase.js';
 
 const validateInput = (key, val) => {
     switch (key) {
@@ -26,7 +27,7 @@ const ButtonBar = ({ message, disabled }) => {
     return (
         <div className="d-flex">
             <button type="button" className="btn btn-outline-dark me-2" onClick={() => navigate("/")}>Cancel</button>
-            <button type="submit" className="btn btn-primary me-auto" disabled={true} onClick={() => onSubmit()}>Submit</button>
+            <button type="submit" className="btn btn-primary me-auto" disabled={disabled} onClick={() => onSubmit()}>Submit</button>
             <span className="p-2">{message}</span>
         </div>
     );
@@ -55,19 +56,30 @@ const onSubmit = () => {
 
 
 const CourseForm = () => {
+    const navigate = useNavigate();
     const { course } = useParams();
-    const [title, meets] = course.split('|');
-
+    const [id, title, meets] = course.split('|');
     const [state, change] = useFormData(validateInput, {
         title: title,
         meets: meets,
     });
-
+    const [update, result] = useDbUpdate(`/courses/${id}`);
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        if (!state.errors && (state.values != {
+            title: title,
+            meets: meets,
+        })) {
+            update(state.values);
+            navigate("/");
+        }
+    };
+    const disabled = state.errors || (state.values.title == title && state.values.meets == meets);
     return (
-        <form noValidate className={state.errors ? 'was-validated' : null}>
+        <form onSubmit={onSubmit} noValidate className={state.errors ? 'was-validated' : null}>
             <InputField name="title" text="Title" state={state} change={change} />
             <InputField name="meets" text="Meeting Time" state={state} change={change} />
-            <ButtonBar />
+            <ButtonBar disabled={disabled} />
         </form>
     );
 };

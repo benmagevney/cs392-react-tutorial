@@ -18,7 +18,7 @@ const Course = ({ course, isSelected, toggleSelected, hasConflict }) => (
             <p className='card-text'>{course.meets}</p>
 
         </div>
-        <Link to={`/course-form/${course.title}|${course.meets}`}>
+        <Link to={`/course-form/${course.term[0] + course.number}|${course.title}|${course.meets}`}>
             <button className="btn btn-outline-dark" style={{ width: "100px", }}>Edit</button>
         </Link>
 
