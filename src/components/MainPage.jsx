@@ -8,10 +8,10 @@ import CourseSchedule from './CourseSchedule';
 import { useState } from 'react';
 import { checkConflict } from '../utilities/conflict';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useAuthState } from "../utilities/firebase";
+import { useProfile } from "../utilities/profile";
 
 export const MainPage = (data) => {
-    const [user] = useAuthState();
+    const [profile, profileLoading, profileError] = useProfile();
     const [term, setTerm] = useState('Fall');
     // selected courses
     const [selected, setSelected] = useState([]);
@@ -40,7 +40,7 @@ export const MainPage = (data) => {
                                 <TermSelector selection={term} setSelection={setTerm} />
                                 <button className="btn btn-outline-dark" onClick={openSchedule}>Show Schedule</button>
                             </div>
-                            <CourseList courses={data.data.courses} term={term} selected={selected} toggleSelected={toggleSelected} user={user} />
+                            <CourseList courses={data.data.courses} term={term} selected={selected} toggleSelected={toggleSelected} isAdmin={profile.isAdmin} />
                         </>
                     } />
                     <Route path="/course-form/:course" element={
