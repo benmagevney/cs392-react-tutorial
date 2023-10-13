@@ -4,7 +4,7 @@ import icon from '../assets/warning.svg';
 import { Link } from 'react-router-dom';
 
 
-const Course = ({ course, isSelected, toggleSelected, hasConflict }) => (
+const Course = ({ course, isSelected, toggleSelected, hasConflict, user }) => (
     <div className="card m-1 p-2" onClick={() => toggleSelected(course)}
         style={{ borderColor: isSelected ? "#E07A5F" : "#3D405B", borderWidth: "0.2em", backgroundColor: "#F4F1DE" }}>
         <div className="card-body">
@@ -18,13 +18,16 @@ const Course = ({ course, isSelected, toggleSelected, hasConflict }) => (
             <p className='card-text'>{course.meets}</p>
 
         </div>
-        <Link to={`/course-form/${course.term[0] + course.number}|${course.title}|${course.meets}`}>
-            <button className="btn btn-outline-dark" style={{ width: "100px", }}>Edit</button>
-        </Link>
+        {user != null ?
+            <Link to={`/course-form/${course.term[0] + course.number}|${course.title}|${course.meets}`}>
+                <button className="btn btn-outline-dark" style={{ width: "100px", }}>Edit</button>
+            </Link> :
+            null}
+
 
     </div>
 );
-const CourseList = ({ courses, term, selected, toggleSelected }) => (
+const CourseList = ({ courses, term, selected, toggleSelected, user }) => (
     <div className="container">
         <div className="course-list">
             {Object.entries(courses).filter(([id, course]) => course.term == term).map(
@@ -33,7 +36,8 @@ const CourseList = ({ courses, term, selected, toggleSelected }) => (
                     course={course}
                     isSelected={selected.includes(course)}
                     toggleSelected={toggleSelected}
-                    hasConflict={checkConflict(selected, course)} />)}
+                    hasConflict={checkConflict(selected, course)}
+                    user={user} />)}
         </div>
     </div>
 );
