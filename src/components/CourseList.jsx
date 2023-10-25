@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 const Course = ({ course, isSelected, toggleSelected, hasConflict, isAdmin }) => (
-    <div className="card m-1 p-2" onClick={() => toggleSelected(course)}
+    <div className="card m-1 p-2" data-cy="course" onClick={() => toggleSelected(course)}
         style={{ borderColor: isSelected ? "#E07A5F" : "#3D405B", borderWidth: "0.2em", backgroundColor: "#F4F1DE" }}>
         <div className="card-body">
             <div style={{ display: "flex", justifyContent: "space-between", }}>

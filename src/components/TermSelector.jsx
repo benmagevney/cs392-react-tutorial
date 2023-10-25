@@ -5,17 +5,17 @@ const TermSelector = ({ selection, setSelection, }) => (
         <input type="radio" className="btn-check" name="btnradio" id="fall"
             autoComplete="off" defaultChecked={selection == "Fall"} onClick={() => setSelection("Fall")}
         />
-        <label className="btn btn-outline-primary" htmlFor="fall">Fall</label>
+        <label className="btn btn-outline-primary" htmlFor="fall" data-cy="fall">Fall</label>
 
         <input type="radio" className="btn-check" name="btnradio" id="winter"
             autoComplete="off" defaultChecked={selection == "Winter"} onClick={() => setSelection("Winter")}
         />
-        <label className="btn btn-outline-primary" htmlFor="winter">Winter</label>
+        <label className="btn btn-outline-primary" htmlFor="winter" data-cy="winter">Winter</label>
 
         <input type="radio" className="btn-check" name="btnradio" id="spring"
             autoComplete="off" defaultChecked={selection == "Spring"} onClick={() => setSelection("Spring")}
         />
-        <label className="btn btn-outline-primary" htmlFor="spring">Spring</label>
+        <label className="btn btn-outline-primary" htmlFor="spring" data-cy="spring">Spring</label>
     </div>
 );
 
